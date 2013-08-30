@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GD imagettftext</title>
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../_static/lib/prism/prism.css">
+</head>
+<body>
+<div class="container">
+  <div class="body-content">
+    <h1>GD imagettftext</h1>
+    <h2>Original</h2>
+    <img src="../_static/examples/gd-imagettftext/000.jpg">
+
+    <h2>Example 1</h2>
+<pre><code class="language-php">$im = imagecreatefromjpeg('000.jpg');
+
+// get the image size
+$w = imagesx($im);
+$h = imagesy($im);
+
+// place some text (top, left)
+imagettftext($im, 60, 0, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
+
+imageJpeg($im, "001.jpg", 85);
+imagedestroy($im);
+</code></pre>
+    <img src="../_static/examples/gd-imagettftext/001.jpg">
+  </div>
+</div>
+
+<script src="../_static/lib/prism/prism.js"></script>
+</body>
+</html>

@@ -21,7 +21,7 @@ $w = imagesx($im);
 $h = imagesy($im);
 
 // place some text (top, left)
-imagettftext($im, 60, 0, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
+imagettftext($im, 60, 0, 300, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
 
 imageJpeg($im, "001.jpg", 85);
 imagedestroy($im);

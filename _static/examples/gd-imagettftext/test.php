@@ -12,11 +12,11 @@ $h = imagesy($im);
 //$text = imagecreatetruecolor($w, $h);
 //imagealphablending($text, true);
 
-// 001
-//place some text (top, left)
+// place some text (top, left)
+// array imagettftext ( resource $image , float $size , float $angle , int $x , int $y , int $color , string $fontfile , string $text )
+imagettftext($im, 60, 0, 300, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體'); // 001
 //imagettftext($im, 60, 0, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
-//imagettftext($im, 60, 0, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
-imagefttext($im, 60, 30, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體', ['linespacing' => 100]);
+//imagefttext($im, 60, 30, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體', ['linespacing' => 100]);
 
 // merge the two canvas
 //set opacity to 50%
@@ -30,7 +30,7 @@ imagedestroy ($text);
 imagedestroy($im);
 */
 
-imageJpeg($im, "003.jpg", 85);
+imageJpeg($im, "001.jpg", 85);
 echo "done";
 
 ?>

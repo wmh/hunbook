@@ -27,6 +27,13 @@ imageJpeg($im, "001.jpg", 85);
 imagedestroy($im);
 </code></pre>
     <img src="../_static/examples/gd-imagettftext/001.jpg">
+
+    <h2>Example 2 - angle</h2>
+<pre><code class="language-php">$angle = 10;
+imagettftext($im, 60, $angle, 300, 130, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
+</code></pre>
+    <img src="../_static/examples/gd-imagettftext/002.jpg">
+
   </div>
 </div>
 

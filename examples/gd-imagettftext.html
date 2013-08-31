@@ -34,6 +34,20 @@ imagettftext($im, 60, $angle, 300, 130, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁
 </code></pre>
     <img src="../_static/examples/gd-imagettftext/002.jpg">
 
+    <h2>Example 3 - border</h2>
+<pre><code class="language-php">// http://www.johnciacia.com/2010/01/04/using-php-and-gd-to-add-border-to-text/
+function imagettfstroketext(&$image, $size, $angle, $x, $y, &$textcolor, &$strokecolor, $fontfile, $text, $px) {
+    for($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++)
+        for($c2 = ($y-abs($px)); $c2 <= ($y+abs($px)); $c2++)
+            $bg = imagettftext($image, $size, $angle, $c1, $c2, $strokecolor, $fontfile, $text);
+   return imagettftext($image, $size, $angle, $x, $y, $textcolor, $fontfile, $text);
+}
+
+$font_color = imagecolorallocate($im, 255, 255, 255);
+$stroke_color = imagecolorallocate($im, 0, 0, 0);
+imagettfstroketext($im, 60, 10, 300, 130, $font_color, $stroke_color, "wqy-microhei.ttc", "简体繁體", 2);
+</code></pre>
+    <img src="../_static/examples/gd-imagettftext/003.jpg">
   </div>
 </div>
 

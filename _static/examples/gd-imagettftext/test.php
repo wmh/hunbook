@@ -1,6 +1,14 @@
 <?php
 //ini_set('memory_limit', '100M');
 
+// http://www.johnciacia.com/2010/01/04/using-php-and-gd-to-add-border-to-text/
+function imagettfstroketext(&$image, $size, $angle, $x, $y, &$textcolor, &$strokecolor, $fontfile, $text, $px) {
+    for($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++)
+        for($c2 = ($y-abs($px)); $c2 <= ($y+abs($px)); $c2++)
+            $bg = imagettftext($image, $size, $angle, $c1, $c2, $strokecolor, $fontfile, $text);
+   return imagettftext($image, $size, $angle, $x, $y, $textcolor, $fontfile, $text);
+}
+
 //get tektips logo
 $im = imagecreatefromjpeg('000.jpg');
 
@@ -14,9 +22,11 @@ $h = imagesy($im);
 
 // place some text (top, left)
 // array imagettftext ( resource $image , float $size , float $angle , int $x , int $y , int $color , string $fontfile , string $text )
-imagettftext($im, 60, 0, 300, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體'); // 001
-//imagettftext($im, 60, 0, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體');
-//imagefttext($im, 60, 30, 100, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體', ['linespacing' => 100]);
+//imagettftext($im, 60, 0, 300, 100, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體'); // 001
+//imagettftext($im, 60, 10, 300, 130, 0xFFFFFF, 'wqy-microhei.ttc', '简体繁體'); // 002
+$font_color = imagecolorallocate($im, 255, 255, 255);
+$stroke_color = imagecolorallocate($im, 0, 0, 0);
+imagettfstroketext($im, 60, 10, 300, 130, $font_color, $stroke_color, "wqy-microhei.ttc", "简体繁體", 2);
 
 // merge the two canvas
 //set opacity to 50%
@@ -30,7 +40,7 @@ imagedestroy ($text);
 imagedestroy($im);
 */
 
-imageJpeg($im, "001.jpg", 85);
+imageJpeg($im, "003.jpg", 85);
 echo "done";
 
 ?>

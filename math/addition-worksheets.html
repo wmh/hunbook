@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addition Worksheets - under 10,000</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+body {
+  font-size:16px;
+  background-image: url(../_static/img/noise.png);
+}
+.row {
+  margin-bottom: 120px;
+}
+.col-md-3 {
+  text-align: right;
+  font-size: 36px;
+  border-bottom: 1px solid #000;
+  letter-spacing: 10px;
+}
+@media print {
+  .jumbotron {
+    text-align: center;
+    padding: 0;
+  }
+  .col-md-3 {
+    width: 25%;
+    float: left;
+  }
+  .col-md-offset-1 {
+    margin-left: 8.333333333333332%;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Addition Worksheets</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+        <div class="col-md-3 col-md-offset-1"></div>
+      </div>
+    </div>
+  </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(function () {
+  $('.col-md-3').each(function () {
+    var $this = $(this),
+        ans = parseInt(Math.random() * 5000, 10) + 5000,
+        num1 = parseInt(Math.random() * 3000, 10) + 1000,
+        num2 = ans - num1,
+        arr = [num1, num2],
+        exchange = Math.random() > 0.5,
+        num1 = exchange ? arr[1] : arr[0],
+        num2 = exchange ? arr[0] : arr[1];
+
+    $this.html(num1 + '<br>+' + num2);
+  });
+});
+</script>
+</html>

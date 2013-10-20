@@ -16,5 +16,6 @@
 
 ## Tools
 
+* [screen-resolution.html](http://wmh.github.io/hunbook/tools/screen-resolution.html)
 * [tz-maps.html](http://wmh.github.io/hunbook/tools/tz-maps.html)
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image to Base64</title>
+<meta name="description" content="Convert image to base64">
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<style>
+body {
+  background-image: url(http://wmh.github.io/hunbook/_static/img/noise.png);
+}
+h1, h2, h3 {
+  padding-top: 20px;
+  font-family: 'Lobster', sans-serif;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="masthead">
+    <h1 class="muted">Image to Base64 (HTML5)</h1>
+  </div>
+  <div class="body-content">
+    <hr>
+    <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="pages" class="col-md-2 control-label">Select a file:</label>
+      <div class="col-md-10">
+        <input type="file" class="form-control" id="file" value="10">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="base64" class="col-md-2 control-label">base64</label>
+      <div class="col-md-10">
+        <textarea id="base64" class="form-control" rows="6"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="console-log" class="col-md-2 control-label">console.log</label>
+      <div class="col-md-10">
+        <textarea id="console-log" class="form-control" rows="6"></textarea>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+if (typeof window.FileReader == 'undefined') {
+  alert('Your browser seems a bit outdated.');
+}
+String.prototype.repeat = function(num) {
+  return new Array(num + 1).join(this);
+};
+$(function () {
+  $('#base64,#console-log').click(function () {
+    this.select();
+  });
+  $('#file').change(function (e) {
+    var theFile = e.target.files[0],
+        reader;
+
+    $('#base64').text('');
+    $('#console-log').text('');
+
+    if (theFile.type.substr(0, 5) !== 'image') {
+      alert('This is not an image file!');
+      return;
+    }
+    reader = new FileReader();
+    reader.onload = function (e) {
+      var that = this;
+      $('#base64').text(this.result);
+      var image = new Image();
+      image.src = this.result;
+      image.onload = function() {
+        var lines = Math.ceil(this.height / 15),
+            logSyntax = 'console.log("' + new String("\\n").repeat(lines) + '%c", \'font-size:0;padding-top:'+ this.height +'px;padding-left:'+ this.width +'px;background:url("'+ that.result +'")\')';
+        $('#console-log').text(logSyntax);
+      };
+    };
+    reader.readAsDataURL(theFile);
+  });
+});
+</script>
+</body>
+</html>

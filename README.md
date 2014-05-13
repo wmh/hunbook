@@ -17,6 +17,7 @@
 ## Tools
 
 * [ace-editor.html](http://wmh.github.io/hunbook/tools/ace-editor.html)
+* [fatcow-icons.html](http://wmh.github.io/hunbook/tools/fatcow-icons.html)
 * [image-to-base64.html](http://wmh.github.io/hunbook/tools/image-to-base64.html)
 * [screen-resolution.html](http://wmh.github.io/hunbook/tools/screen-resolution.html)
 * [tz-maps.html](http://wmh.github.io/hunbook/tools/tz-maps.html)

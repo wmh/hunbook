@@ -13,7 +13,7 @@ Example url:
 ::
 
  # echo base_url();
- http://dev.ishoes.tw/
+ http://dev.example.com/
 
 ::
 

@@ -1,8 +1,8 @@
 <?php
 $templates = ['index.html', 'README.md'];
 $articles = [];
-$d = dir(__DIR__);
-while (false !== ($cate = $d->read())) {
+$d = scandir(__DIR__);
+foreach ($d as $cate) {
   if ($cate === '.' || $cate === '..' || $cate === '.git' || strpos($cate, '_') === 0)
   {
     continue;
@@ -11,17 +11,15 @@ while (false !== ($cate = $d->read())) {
   if (!is_dir($cate_path)) {
     continue;
   }
-  $cate_d = dir($cate_path);
-  while (false !== ($title = $cate_d->read())) {
+  $cate_d = scandir($cate_path);
+  foreach ($cate_d as $title) {
     if ($title === '.' || $title === '..')
     {
       continue;
     }
     $articles[$cate][] = $title;
   }
-  $cate_d->close();
 }
-$d->close();
 
 foreach ($templates as $template) {
   ob_start();

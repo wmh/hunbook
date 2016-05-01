@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trigonometric</title>
+<meta name="description" content="Trigonometric functions">
+<meta name="revised" content="12/21/2015">
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<style>
+body {
+  background-image: url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/escheresque.png);
+  background-repeat: repeat;
+}
+h1, h2, h3 {
+  font-family: 'Lobster', sans-serif;
+  margin: 10px 0;
+}
+.dot {
+  border: 1px solid red;
+  position: absolute;
+  width: 3px;
+  height: 3px;
+}
+svg {
+  border: 1px dashed silver;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="row" id="stage">
+  </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bonsai/0.4.5/bonsai.min.js"></script>
+<script>
+$(function () {
+  // var r = 200,
+  //     w = $(window).width(),
+  //     h = $(window).height(),
+  //     centerX = parseInt(w/2, 10),
+  //     centerY = parseInt(h/2, 10);
+  // $('body').append('<div class="dot" style="top: '+ centerY +'px; left: '+ centerX +'px;"></div>');
+  // for (var a = 0; a <= 180; a+= 3) {
+  //   ra = a * Math.PI / 180;
+  //   x = centerX + Math.cos(ra) * r;
+  //   y = centerY - Math.sin(ra) * r;
+  //   $('body').append('<div class="dot" style="top: '+ y +'px; left: '+ x +'px;"></div>');
+  // }
+  var $stage = $('#stage'),
+      w = $stage.width(),
+      h = $(window).height();
+
+  // TRI.centerX = parseInt(w/2, 10);
+  // TRI.centerY = parseInt(h/2, 10);
+  //
+  bonsai.run(document.getElementById('stage'), {
+    code: function() {
+      var w = stage.width,
+          h = stage.height,
+          r = parseInt(h/3, 10),
+          centerX = parseInt(w/2, 10),
+          centerY = parseInt(h/2, 10);
+
+      new Circle(centerX, centerY, r).addTo(stage).stroke('#faa', 3);
+
+      var rr = new Path([
+        ['moveTo', centerX, centerY],
+        ['lineBy', r, 0]
+      ]);
+      rr.addTo(stage)
+        // .stroke('silver', 5)
+      ;
+
+      var g1 = new Group().addTo(stage);
+      var t1 = new Text('').addTo(g1);
+
+      var gh = new Group().addTo(stage);
+      var h = new Text('h').addTo(gh);
+
+      var gt = new Group().addTo(stage);
+      var txtTheta = new Text('θ').addTo(gt);
+
+      var pp = new Circle(centerX + r, centerY, 5)
+        .addTo(stage)
+        .attr('fillColor', 'green')
+        .on('pointermove', function(e) {
+          this.stroke('green', 10);
+          e.stop();
+        })
+        .on('drag', function(e) {
+          // 輔助線
+          // rr.clear().moveTo(centerX, centerY).lineTo(e.stageX, e.stageY);
+          var offsetX = e.stageX - centerX,
+              offsetY = e.stageY - centerY,
+              dist = Math.sqrt(offsetX * offsetX + offsetY * offsetY),
+              scale = r / dist,
+              theX = parseInt(offsetX * scale, 10),
+              theY = parseInt(offsetY * scale, 10),
+              theXX = parseInt(offsetX * scale * 1.05, 10),
+              theYY = parseInt(offsetY * scale * 1.05, 10),
+              theta = Math.asin(-offsetY/dist) * 180 / Math.PI,
+              ra = theta / 2 * Math.PI / 180,
+              txtThetaX = parseInt(Math.cos(ra) * 30, 10),
+              txtThetaY = parseInt(Math.sin(ra) * 30, 10);
+
+          theXX = theXX < 0 ? theXX - 70 : theXX;
+          theYY = theYY < 0 ? theYY - 20: theYY;
+
+          rr.clear().stroke('silver', 1)
+            .moveTo(centerX, centerY)
+            .lineBy(theX, 0)
+            .lineBy(0, theY).closePath();
+
+          t1.attr('text', '('+ theX +', '+ -theY +')');
+          g1.attr({
+            x: centerX + theXX,
+            y: centerY + theYY
+          });
+
+          gh.attr({
+            x: centerX + parseInt(theX/2, 10),
+            y: centerY + parseInt(theY/2, 10)
+          });
+
+          gt.attr({
+            x: centerX + txtThetaX,
+            y: centerY - txtThetaY - 10
+          });
+
+          // txtTheta.attr('text', 'θ=' + theta);
+
+          this.attr('x', centerX + theX).attr('y', centerY + theY);
+        })
+      ;
+
+      new Circle(centerX, centerY, 2).addTo(stage).attr('fillColor', 'red');
+      stage.on('pointermove', function(e) {
+        pp.stroke('green', 1);
+      });
+
+      // new Rect(10, 10, 100, 100)
+      //   .addTo(stage)
+      //   .attr('fillColor', 'green');
+    },
+    width: w,
+    height: h
+  });
+});
+</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-51087812-1', 'wmh.github.io');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -21,5 +21,6 @@
 * [image-to-base64.html](http://wmh.github.io/hunbook/tools/image-to-base64.html)
 * [layout-design.html](http://wmh.github.io/hunbook/tools/layout-design.html)
 * [screen-resolution.html](http://wmh.github.io/hunbook/tools/screen-resolution.html)
+* [trigonometric.html](http://wmh.github.io/hunbook/tools/trigonometric.html)
 * [tz-maps.html](http://wmh.github.io/hunbook/tools/tz-maps.html)
 

@@ -75,7 +75,8 @@ $.each(cityData, function (city, tz) {
            content: '<p>'+ city + '</p>'
           }
         });
-        thatMarker.infoWindow.open(m1, thatMarker);
+        // thatMarker.infoWindow.open(m1, thatMarker);
+
         google.maps.event.addListener(thatMarker, 'click', function () {
           console.log('city:' + loc.lat() + ', ' + loc.lng());
         });

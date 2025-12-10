@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golang 版本時程表</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        .timeline-container {
+            margin-top: 40px;
+            position: relative;
+            background: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .timeline-axis {
+            position: relative;
+            height: 280px;
+            margin: 40px 0;
+            width: 100%;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e0e0e0 0%, #bbb 100%);
+            transform: translateY(-50%);
+        }
+        .current-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #ff4444;
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+        .current-marker::before {
+            content: '今日';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .version-segment {
+            position: absolute;
+            height: 70px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .version-segment.row-0 {
+            top: 20px;
+        }
+        .version-segment.row-1 {
+            top: 110px;
+        }
+        .version-segment.row-2 {
+            top: 200px;
+        }
+        .version-segment:hover {
+            z-index: 5;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transform: scale(1.03);
+        }
+        .version-segment.eol {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+            border: 2px solid #bbb;
+            opacity: 0.6;
+        }
+        .version-segment.supported {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: 2px solid #e8425a;
+        }
+        .version-segment.current {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid #5568d3;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .version-segment.upcoming {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: 2px solid #3d9ae6;
+            opacity: 0.8;
+        }
+        .version-info {
+            text-align: center;
+            color: white;
+            padding: 5px;
+        }
+        .version-segment.eol .version-info {
+            color: #666;
+        }
+        .version-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+        .version-dates {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+        .time-markers {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 30px;
+        }
+        .time-marker {
+            position: absolute;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+        }
+        .time-marker::before {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 1px;
+            height: 280px;
+            background: rgba(153, 153, 153, 0.2);
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .legend-item {
+            display: inline-block;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .info-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .current-date {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐹 Golang 版本發布與支援時程表</h1>
+        <p class="subtitle">Go 每 6 個月發布一個主要版本（2月、8月），每個版本支援至後兩個版本發布</p>
+        
+        <div class="current-date" id="currentDate"></div>
+        
+        <div class="timeline-container">
+            <div class="timeline-axis" id="timelineAxis">
+                <div class="timeline-line"></div>
+                <div id="currentMarker" class="current-marker"></div>
+                <div id="versionSegments"></div>
+                <div class="time-markers" id="timeMarkers"></div>
+            </div>
+
+        </div>
+
+        <div class="legend">
+            <h4>圖例說明</h4>
+            <div class="legend-item">
+                <span class="legend-color" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></span>
+                <span>當前版本 (Current)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></span>
+                <span>支援中 (Supported)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></span>
+                <span>即將發布 (Upcoming)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e0e0e0;"></span>
+                <span>已停止支援 (EOL)</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h4>關於 Go 版本發布週期</h4>
+            <ul>
+                <li><strong>發布週期：</strong>每 6 個月發布一次主要版本（通常在 2 月和 8 月）</li>
+                <li><strong>支援政策：</strong>每個版本支援至後兩個主要版本發布為止</li>
+                <li><strong>次要版本：</strong>在主要版本生命週期內會發布次要補丁版本修復問題</li>
+                <li><strong>建議：</strong>建議使用最新的穩定版本以獲得最佳性能和安全性</li>
+            </ul>
+            <p><a href="https://go.dev/doc/devel/release" target="_blank">官方發布歷史 →</a></p>
+        </div>
+    </div>
+
+    <script>
+        function generateTimeline() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth() + 1;
+            
+            // Display current date
+            document.getElementById('currentDate').textContent = 
+                `當前日期：${currentYear} 年 ${currentMonth} 月 ${now.getDate()} 日`;
+            
+            let currentVersion;
+            if (currentMonth >= 8) {
+                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear, 8) };
+            } else if (currentMonth >= 2) {
+                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear, 2) };
+            } else {
+                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear - 1, 8) };
+            }
+            
+            const versions = [];
+            
+            // Find the newest EOL version to show (at most 1)
+            let newestEOL = null;
+            for (let i = 1; i <= 10; i++) {
+                const version = calculateVersionInfo(currentVersion.minor - i, now);
+                if (version.isEOL) {
+                    newestEOL = version;
+                    break;
+                }
+            }
+            if (newestEOL) {
+                versions.push(newestEOL);
+            }
+            
+            // Add all supported versions (current and previous supported)
+            for (let i = 5; i >= 0; i--) {
+                const version = calculateVersionInfo(currentVersion.minor - i, now);
+                if (!version.isEOL && version.isReleased) {
+                    versions.push(version);
+                }
+            }
+            
+            // Add only 1 upcoming version
+            const nextVersion = calculateVersionInfo(currentVersion.minor + 1, now);
+            if (!nextVersion.isReleased) {
+                versions.push(nextVersion);
+            }
+            
+            renderTimeline(versions, now);
+        }
+        
+        function calculateMinorVersion(year, month) {
+            const baseYear = 2024;
+            const baseMinor = 22;
+            const monthsFromBase = (year - baseYear) * 12 + (month - 2);
+            const versionsFromBase = Math.floor(monthsFromBase / 6);
+            return baseMinor + versionsFromBase;
+        }
+        
+        function calculateVersionInfo(minorVersion, currentDate) {
+            const baseYear = 2024;
+            const baseMinor = 22;
+            const baseMonth = 2;
+            
+            const versionDiff = minorVersion - baseMinor;
+            const monthsToAdd = versionDiff * 6;
+            
+            const releaseDate = new Date(baseYear, baseMonth - 1, 1);
+            releaseDate.setMonth(releaseDate.getMonth() + monthsToAdd);
+            
+            const eolDate = new Date(releaseDate);
+            eolDate.setMonth(eolDate.getMonth() + 12);
+            
+            const isReleased = releaseDate <= currentDate;
+            const isEOL = eolDate <= currentDate;
+            const currentMinor = getCurrentMinorVersion(currentDate);
+            
+            let status;
+            if (!isReleased) {
+                status = 'upcoming';
+            } else if (isEOL) {
+                status = 'eol';
+            } else if (minorVersion === currentMinor) {
+                status = 'current';
+            } else if (!isEOL) {
+                status = 'supported';
+            }
+            
+            return {
+                version: `Go 1.${minorVersion}`,
+                releaseDate: releaseDate,
+                eolDate: eolDate,
+                status: status,
+                isReleased: isReleased,
+                isEOL: isEOL
+            };
+        }
+        
+        function getCurrentMinorVersion(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            
+            if (month >= 8) {
+                return calculateMinorVersion(year, 8);
+            } else if (month >= 2) {
+                return calculateMinorVersion(year, 2);
+            } else {
+                return calculateMinorVersion(year - 1, 8);
+            }
+        }
+        
+        function renderTimeline(versions, currentDate) {
+            // Calculate timeline bounds
+            const startDate = versions[0].releaseDate;
+            const endDate = versions[versions.length - 1].eolDate;
+            const timeRange = endDate - startDate;
+            
+            const segmentsContainer = document.getElementById('versionSegments');
+            const markersContainer = document.getElementById('timeMarkers');
+            segmentsContainer.innerHTML = '';
+            markersContainer.innerHTML = '';
+            
+            // Position current date marker
+            const currentMarker = document.getElementById('currentMarker');
+            const currentPos = ((currentDate - startDate) / timeRange) * 100;
+            currentMarker.style.left = `${currentPos}%`;
+            
+            // Assign rows to avoid overlap using greedy algorithm
+            const rows = [[], [], []]; // Support up to 3 rows
+            
+            versions.forEach(version => {
+                // Find a row where this version doesn't overlap with existing segments
+                let assignedRow = -1;
+                for (let r = 0; r < rows.length; r++) {
+                    let canFit = true;
+                    for (let existing of rows[r]) {
+                        // Check if there's overlap
+                        if (!(version.eolDate <= existing.releaseDate || version.releaseDate >= existing.eolDate)) {
+                            canFit = false;
+                            break;
+                        }
+                    }
+                    if (canFit) {
+                        assignedRow = r;
+                        rows[r].push(version);
+                        break;
+                    }
+                }
+                
+                if (assignedRow === -1) {
+                    // If no row found, use the first row (shouldn't happen with 3 rows)
+                    assignedRow = 0;
+                    rows[0].push(version);
+                }
+                
+                version.row = assignedRow;
+            });
+            
+            // Render version segments
+            versions.forEach(version => {
+                const segment = document.createElement('div');
+                segment.className = `version-segment ${version.status} row-${version.row}`;
+                
+                const startPos = ((version.releaseDate - startDate) / timeRange) * 100;
+                const endPos = ((version.eolDate - startDate) / timeRange) * 100;
+                const width = endPos - startPos;
+                
+                segment.style.left = `${startPos}%`;
+                segment.style.width = `${width}%`;
+                
+                const info = document.createElement('div');
+                info.className = 'version-info';
+                
+                const name = document.createElement('div');
+                name.className = 'version-name';
+                name.textContent = version.version;
+                
+                const dates = document.createElement('div');
+                dates.className = 'version-dates';
+                dates.textContent = `${formatDate(version.releaseDate)} - ${formatDate(version.eolDate)}`;
+                
+                info.appendChild(name);
+                info.appendChild(dates);
+                segment.appendChild(info);
+                segmentsContainer.appendChild(segment);
+            });
+            
+            // Add time markers (every 6 months)
+            const markerDate = new Date(startDate);
+            while (markerDate <= endDate) {
+                const marker = document.createElement('div');
+                marker.className = 'time-marker';
+                const pos = ((markerDate - startDate) / timeRange) * 100;
+                marker.style.left = `${pos}%`;
+                marker.textContent = formatDate(markerDate);
+                markersContainer.appendChild(marker);
+                
+                markerDate.setMonth(markerDate.getMonth() + 6);
+            }
+        }
+        
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            return `${year}/${month.toString().padStart(2, '0')}`;
+        }
+        
+        generateTimeline();
+    </script>
+</body>
+</html>

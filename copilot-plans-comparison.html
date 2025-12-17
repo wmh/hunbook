@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot Plans Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .calculator h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .value-display {
+            min-width: 100px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .plan-card.best-value {
+            border: 3px solid #10b981;
+        }
+        
+        .best-value-badge {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: #10b981;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 0.85em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .plan-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .plan-price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .plan-price-note {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .plan-features li {
+            padding: 8px 0;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .usage-indicator {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .usage-ok {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .usage-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .usage-exceeded {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .cost-breakdown {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        .cost-breakdown div {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .total-cost {
+            font-weight: bold;
+            font-size: 1.1em;
+            border-top: 2px solid #667eea;
+            margin-top: 5px;
+            padding-top: 10px;
+        }
+        
+        .comparison-note {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .comparison-note h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 GitHub Copilot Plans Comparison</h1>
+        
+        <div class="calculator">
+            <h2>Calculate Your Monthly Usage</h2>
+            <div class="input-group">
+                <label for="premiumRequests">Premium Requests per Month:</label>
+                <div class="slider-container">
+                    <input type="range" id="premiumRequests" min="0" max="3000" value="200" step="50">
+                    <span class="value-display" id="requestsValue">200</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="plans-grid" id="plansGrid"></div>
+        
+        <div class="comparison-note">
+            <h3>💡 How to Choose:</h3>
+            <p><strong>Free:</strong> Perfect for trying out AI coding or students/hobbyists with light usage.</p>
+            <p><strong>Pro ($10/mo):</strong> Best for individual developers with moderate premium request usage (up to 300/month).</p>
+            <p><strong>Pro+ ($39/mo):</strong> For power users who heavily use advanced AI features (1,500 requests/month included).</p>
+            <p><strong>Business ($19/user):</strong> Teams needing organizational controls, security, and policy management.</p>
+            <p><strong>Enterprise ($39/user):</strong> Large organizations requiring codebase integration, compliance, and private model tuning.</p>
+            <p style="margin-top: 15px;"><strong>Note:</strong> Extra premium requests cost $0.04/request. All paid plans include unlimited basic completions and chat.</p>
+        </div>
+    </div>
+    
+    <script>
+        const plans = [
+            {
+                name: 'Free',
+                basePrice: 0,
+                premiumRequests: 50,
+                completions: '2,000',
+                chat: '50',
+                features: [
+                    'Limited features',
+                    '2,000 completions/month',
+                    '50 chat messages/month',
+                    'Basic AI models',
+                    'Try before buying'
+                ]
+            },
+            {
+                name: 'Pro',
+                basePrice: 10,
+                premiumRequests: 300,
+                completions: 'Unlimited',
+                chat: 'Unlimited',
+                features: [
+                    'Unlimited completions',
+                    'Unlimited chat',
+                    'All IDE support',
+                    'Premium AI models',
+                    'Copilot coding agent',
+                    'Priority updates'
+                ]
+            },
+            {
+                name: 'Pro+',
+                basePrice: 39,
+                premiumRequests: 1500,
+                completions: 'Unlimited',
+                chat: 'Unlimited',
+                features: [
+                    'All Pro features',
+                    'Highest request limit',
+                    'Latest/best models',
+                    'GPT-4, Claude, Gemini',
+                    'Early access features',
+                    'Advanced workflows'
+                ]
+            },
+            {
+                name: 'Business',
+                basePrice: 19,
+                premiumRequests: 300,
+                completions: 'Unlimited',
+                chat: 'Unlimited',
+                features: [
+                    'All Pro features',
+                    'Team management',
+                    'Policy controls',
+                    'SAML SSO',
+                    'Enhanced privacy',
+                    'License management'
+                ]
+            },
+            {
+                name: 'Enterprise',
+                basePrice: 39,
+                premiumRequests: 1000,
+                completions: 'Unlimited',
+                chat: 'Unlimited',
+                features: [
+                    'All Business features',
+                    'Codebase indexing',
+                    'Private model tuning',
+                    'Custom onboarding',
+                    'Compliance tools',
+                    'Premium support'
+                ]
+            }
+        ];
+        
+        const slider = document.getElementById('premiumRequests');
+        const valueDisplay = document.getElementById('requestsValue');
+        const plansGrid = document.getElementById('plansGrid');
+        
+        function calculateCost(plan, requests) {
+            if (plan.name === 'Free') {
+                return { total: 0, extra: 0, extraCost: 0 };
+            }
+            
+            const extra = Math.max(0, requests - plan.premiumRequests);
+            const extraCost = extra * 0.04;
+            const total = plan.basePrice + extraCost;
+            
+            return { total, extra, extraCost };
+        }
+        
+        function getUsageClass(plan, requests) {
+            if (plan.name === 'Free') {
+                return requests <= plan.premiumRequests ? 'usage-ok' : 'usage-exceeded';
+            }
+            
+            const percentage = (requests / plan.premiumRequests) * 100;
+            if (percentage <= 100) return 'usage-ok';
+            if (percentage <= 150) return 'usage-warning';
+            return 'usage-exceeded';
+        }
+        
+        function getUsageMessage(plan, requests, cost) {
+            if (plan.name === 'Free') {
+                if (requests <= plan.premiumRequests) {
+                    return `✅ Within limit (${requests}/${plan.premiumRequests})`;
+                }
+                return `❌ Exceeds limit by ${requests - plan.premiumRequests}`;
+            }
+            
+            if (cost.extra === 0) {
+                return `✅ Within included limit`;
+            }
+            
+            if (cost.extra <= plan.premiumRequests * 0.5) {
+                return `⚠️ ${cost.extra} extra requests (+$${cost.extraCost.toFixed(2)})`;
+            }
+            
+            return `⚠️ ${cost.extra} extra requests (+$${cost.extraCost.toFixed(2)})`;
+        }
+        
+        function findBestValue(requests) {
+            const paidPlans = plans.filter(p => p.name !== 'Free');
+            let bestPlan = paidPlans[0];
+            let bestCost = calculateCost(bestPlan, requests).total;
+            
+            paidPlans.forEach(plan => {
+                const cost = calculateCost(plan, requests);
+                if (cost.total < bestCost) {
+                    bestCost = cost.total;
+                    bestPlan = plan;
+                }
+            });
+            
+            return bestPlan.name;
+        }
+        
+        function renderPlans(requests) {
+            const bestValue = findBestValue(requests);
+            
+            plansGrid.innerHTML = plans.map(plan => {
+                const cost = calculateCost(plan, requests);
+                const usageClass = getUsageClass(plan, requests);
+                const usageMessage = getUsageMessage(plan, requests, cost);
+                const isBestValue = plan.name === bestValue;
+                
+                return `
+                    <div class="plan-card ${isBestValue ? 'best-value' : ''}">
+                        ${isBestValue ? '<div class="best-value-badge">Best Value</div>' : ''}
+                        <div class="plan-name">${plan.name}</div>
+                        <div class="plan-price">$${cost.total.toFixed(2)}</div>
+                        <div class="plan-price-note">${plan.name === 'Free' ? 'Forever' : 'per month'}</div>
+                        
+                        <ul class="plan-features">
+                            <li><strong>${plan.premiumRequests}</strong> premium requests</li>
+                            <li><strong>${plan.completions}</strong> completions</li>
+                            <li><strong>${plan.chat}</strong> chat</li>
+                        </ul>
+                        
+                        ${plan.name !== 'Free' && cost.extraCost > 0 ? `
+                        <div class="cost-breakdown">
+                            <div>
+                                <span>Base price:</span>
+                                <span>$${plan.basePrice.toFixed(2)}</span>
+                            </div>
+                            <div>
+                                <span>Extra requests (${cost.extra}):</span>
+                                <span>+$${cost.extraCost.toFixed(2)}</span>
+                            </div>
+                            <div class="total-cost">
+                                <span>Total:</span>
+                                <span>$${cost.total.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="usage-indicator ${usageClass}">
+                            ${usageMessage}
+                        </div>
+                        
+                        <ul class="plan-features" style="margin-top: 15px; font-size: 0.9em;">
+                            ${plan.features.map(f => `<li>${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        slider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            valueDisplay.textContent = value;
+            renderPlans(parseInt(value));
+        });
+        
+        renderPlans(200);
+    </script>
+</body>
+</html>

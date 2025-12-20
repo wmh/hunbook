@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機芯型號對照表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+            color: #2d3748;
+        }
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 12px;
+        }
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 12px;
+        }
+        .beginner {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            transition: all 0.3s ease;
+        }
+        .beginner:hover {
+            background: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 100%);
+            transform: translateY(-2px);
+        }
+        .intermediate {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            transition: all 0.3s ease;
+        }
+        .intermediate:hover {
+            background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+            transform: translateY(-2px);
+        }
+        .advanced {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            transition: all 0.3s ease;
+        }
+        .advanced:hover {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            transform: translateY(-2px);
+        }
+        tbody tr:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            th, td {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>機芯型號對照表</h1>
+        <table>
+        <thead>
+            <tr>
+                <th>機芯型號</th>
+                <th>類型</th>
+                <th>擺頻</th>
+                <th>動力儲存</th>
+                <th>產地</th>
+                <th>等級 / 定位</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="beginner">
+                <td>6017</td>
+                <td>手上鍊/自動</td>
+                <td>21,600 vph</td>
+                <td>36–40h</td>
+                <td>中國</td>
+                <td>入門</td>
+            </tr>
+            <tr class="beginner">
+                <td>8215</td>
+                <td>自動</td>
+                <td>21,600 vph</td>
+                <td>40h</td>
+                <td>中國</td>
+                <td>入門偏中</td>
+            </tr>
+            <tr class="beginner">
+                <td>1812</td>
+                <td>手上鍊</td>
+                <td>21,600 vph</td>
+                <td>36–40h</td>
+                <td>中國杭州</td>
+                <td>入門薄型 → 入門進階</td>
+            </tr>
+            <tr class="beginner">
+                <td>8N24</td>
+                <td>自動</td>
+                <td>21,600 vph</td>
+                <td>42h</td>
+                <td>日本</td>
+                <td>入門進階</td>
+            </tr>
+            <tr class="beginner">
+                <td>8N40</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>42h</td>
+                <td>日本</td>
+                <td>入門進階</td>
+            </tr>
+            <tr class="beginner">
+                <td>4R36</td>
+                <td>自動</td>
+                <td>21,600 vph</td>
+                <td>41h</td>
+                <td>日本</td>
+                <td>入門進階</td>
+            </tr>
+            <tr class="intermediate">
+                <td>NH35 / NH70</td>
+                <td>自動</td>
+                <td>21,600 vph</td>
+                <td>41h</td>
+                <td>日本</td>
+                <td>中階</td>
+            </tr>
+            <tr class="intermediate">
+                <td>ST2130 / 2130</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>40–42h</td>
+                <td>中國海鷗</td>
+                <td>中階高 CP</td>
+            </tr>
+            <tr class="intermediate">
+                <td>2824-2</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>38–40h</td>
+                <td>瑞士</td>
+                <td>中階 → 中高階</td>
+            </tr>
+            <tr class="intermediate">
+                <td>SW200</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>38–40h</td>
+                <td>瑞士</td>
+                <td>中階 → 中高階</td>
+            </tr>
+            <tr class="intermediate">
+                <td>SW210.M1</td>
+                <td>手上鍊</td>
+                <td>28,800 vph</td>
+                <td>40–42h</td>
+                <td>瑞士 / Sellita</td>
+                <td>中高階手上鍊</td>
+            </tr>
+            <tr class="intermediate">
+                <td>2836-2</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>38–40h</td>
+                <td>瑞士</td>
+                <td>中高階</td>
+            </tr>
+            <tr class="intermediate">
+                <td>SW300</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>42h</td>
+                <td>瑞士</td>
+                <td>中高階</td>
+            </tr>
+            <tr class="advanced">
+                <td>2892A2</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>42h</td>
+                <td>瑞士</td>
+                <td>高階輕薄自動</td>
+            </tr>
+            <tr class="advanced">
+                <td>L021.1</td>
+                <td>自動</td>
+                <td>28,800 vph</td>
+                <td>50–60h</td>
+                <td>瑞士</td>
+                <td>高階 in-house</td>
+            </tr>
+            <tr class="advanced">
+                <td>PF703</td>
+                <td>自動</td>
+                <td>21,600 vph</td>
+                <td>60h</td>
+                <td>瑞士</td>
+                <td>高階 in-house</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>

@@ -17,6 +17,7 @@
 ## Tools
 
 * [ace-editor.html](http://wmh.github.io/hunbook/tools/ace-editor.html)
+* [caliber.html](http://wmh.github.io/hunbook/caliber.html)
 * [copilot-plans-comparison.html](http://wmh.github.io/hunbook/copilot-plans-comparison.html)
 * [fatcow-icons.html](http://wmh.github.io/hunbook/tools/fatcow-icons.html)
 * [golang-versions.html](http://wmh.github.io/hunbook/tools/golang-versions.html)

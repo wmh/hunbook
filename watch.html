@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="經典正裝款指針手錶">
+    <link rel="manifest" href="watch-manifest.json">
+    <link rel="icon" type="image/svg+xml" href="watch-icon.svg">
+    <link rel="apple-touch-icon" href="watch-icon.svg">
+    <title>經典手錶</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .watch-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .watch {
+            width: 80vw;
+            height: 80vw;
+            max-width: 80vh;
+            max-height: 80vh;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 12px solid #d4d4d4;
+        }
+        
+        @media (orientation: landscape) {
+            .watch {
+                width: 80vh;
+                height: 80vh;
+            }
+        }
+
+        .watch-face {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #fafafa 70%, #f0f0f0 100%);
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .center-dot {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #2c2c2c;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .tick {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: #333;
+            left: 50%;
+            top: 5%;
+            transform-origin: center;
+            opacity: 0.6;
+        }
+
+        .tick.major {
+            width: 3px;
+            height: 14px;
+            background: #1a1a1a;
+            opacity: 0.9;
+        }
+
+        .hand {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+            transform-origin: 50% 100%;
+            background: #2c2c2c;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 28%;
+            margin-left: -3px;
+            background: linear-gradient(to top, #1a1a1a, #2c2c2c);
+            z-index: 3;
+        }
+
+        .minute-hand {
+            width: 4px;
+            height: 38%;
+            margin-left: -2px;
+            background: linear-gradient(to top, #1a1a1a, #3c3c3c);
+            z-index: 4;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 42%;
+            margin-left: -1px;
+            background: #c41e3a;
+            z-index: 5;
+            box-shadow: 0 1px 2px rgba(196, 30, 58, 0.3);
+        }
+
+        .digital-clock {
+            font-size: min(12vw, 48px);
+            color: #f5f5f5;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s ease;
+        }
+
+        .digital-clock.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .settings-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #f5f5f5;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            min-width: 280px;
+        }
+
+        .settings-panel.show {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .settings-panel h2 {
+            margin-bottom: 20px;
+            color: #2c2c2c;
+            font-size: 24px;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .setting-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .setting-item label {
+            color: #2c2c2c;
+            font-size: 16px;
+        }
+
+        .clear-cache-btn {
+            padding: 6px 16px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .clear-cache-btn:hover {
+            background: #e64a19;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 54px;
+            height: 28px;
+            background: #ccc;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #2c2c2c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #1a1a1a;
+        }
+
+        @media (max-width: 480px) {
+            .settings-panel {
+                width: 90%;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="settings-btn" onclick="toggleSettings()">⚙</button>
+
+    <div class="watch-container">
+        <div class="watch">
+            <div class="watch-face">
+                <div class="center-dot"></div>
+                <div class="hour-hand hand" id="hourHand"></div>
+                <div class="minute-hand hand" id="minuteHand"></div>
+                <div class="second-hand hand" id="secondHand"></div>
+            </div>
+        </div>
+        <div class="digital-clock" id="digitalClock">00:00:00</div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel">
+        <h2>設定</h2>
+        <div class="setting-item">
+            <label>顯示數字鐘</label>
+            <div class="toggle-switch active" id="digitalToggle" onclick="toggleDigital()"></div>
+        </div>
+        <div class="setting-item">
+            <label>清除緩存</label>
+            <button class="clear-cache-btn" onclick="clearCache()">清除</button>
+        </div>
+        <button class="close-btn" onclick="toggleSettings()">關閉</button>
+    </div>
+
+    <script>
+        const watchFace = document.querySelector('.watch-face');
+        let ticks = [];
+        
+        // 創建或更新刻度位置
+        function updateTicks() {
+            const watchSize = watchFace.offsetWidth;
+            const centerX = watchSize / 2;
+            const centerY = watchSize / 2;
+            const radius = watchSize * 0.45;
+            
+            // 如果刻度還沒創建，先創建
+            if (ticks.length === 0) {
+                for (let i = 0; i < 60; i++) {
+                    const tick = document.createElement('div');
+                    tick.className = i % 5 === 0 ? 'tick major' : 'tick';
+                    watchFace.appendChild(tick);
+                    ticks.push(tick);
+                }
+            }
+            
+            // 更新每個刻度的位置
+            for (let i = 0; i < 60; i++) {
+                const angle = (i * 6 - 90) * Math.PI / 180;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                ticks[i].style.left = x + 'px';
+                ticks[i].style.top = y + 'px';
+                ticks[i].style.transform = `translate(-50%, -50%) rotate(${i * 6}deg)`;
+            }
+        }
+        
+        // 初始化刻度
+        updateTicks();
+        
+        // 視窗大小改變時重新計算
+        window.addEventListener('resize', updateTicks);
+
+        // 獲取指針元素
+        const hourHand = document.getElementById('hourHand');
+        const minuteHand = document.getElementById('minuteHand');
+        const secondHand = document.getElementById('secondHand');
+        const digitalClock = document.getElementById('digitalClock');
+        const digitalToggle = document.getElementById('digitalToggle');
+
+        // 從 localStorage 讀取設定
+        let showDigital = localStorage.getItem('showDigital') !== 'false';
+        
+        // 初始化設定
+        if (!showDigital) {
+            digitalClock.classList.add('hidden');
+            digitalToggle.classList.remove('active');
+        }
+
+        // 更新時間
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const milliseconds = now.getMilliseconds();
+
+            // 計算角度（加入毫秒使秒針平滑移動）
+            const secondAngle = (seconds + milliseconds / 1000) * 6;
+            const minuteAngle = (minutes + seconds / 60) * 6;
+            const hourAngle = ((hours % 12) + minutes / 60) * 30;
+
+            // 更新指針
+            secondHand.style.transform = `rotate(${secondAngle}deg)`;
+            minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
+            hourHand.style.transform = `rotate(${hourAngle}deg)`;
+
+            // 更新數字鐘
+            const h = String(hours).padStart(2, '0');
+            const m = String(minutes).padStart(2, '0');
+            const s = String(seconds).padStart(2, '0');
+            digitalClock.textContent = `${h}:${m}:${s}`;
+        }
+
+        // 切換數字鐘顯示
+        function toggleDigital() {
+            showDigital = !showDigital;
+            localStorage.setItem('showDigital', showDigital);
+            digitalClock.classList.toggle('hidden');
+            digitalToggle.classList.toggle('active');
+        }
+
+        // 切換設定面板
+        function toggleSettings() {
+            document.getElementById('settingsPanel').classList.toggle('show');
+        }
+
+        // 清除緩存
+        async function clearCache() {
+            try {
+                // 清除 Cache Storage
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                }
+                
+                // 註銷 Service Worker
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    await Promise.all(registrations.map(reg => reg.unregister()));
+                }
+                
+                alert('緩存已清除！頁面將重新載入。');
+                window.location.reload(true);
+            } catch (error) {
+                console.error('清除緩存失敗:', error);
+                alert('清除緩存失敗，請手動清除瀏覽器緩存。');
+            }
+        }
+
+        // 註冊 Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('watch-sw.js')
+                .then(reg => console.log('Service Worker 註冊成功', reg))
+                .catch(err => console.log('Service Worker 註冊失敗', err));
+        }
+
+        // 使用 requestAnimationFrame 實現平滑動畫
+        function animate() {
+            updateTime();
+            requestAnimationFrame(animate);
+        }
+
+        // 啟動動畫
+        animate();
+    </script>
+</body>
+</html>

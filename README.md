@@ -31,4 +31,5 @@
 * [screen-resolution.html](http://wmh.github.io/hunbook/tools/screen-resolution.html)
 * [trigonometric.html](http://wmh.github.io/hunbook/tools/trigonometric.html)
 * [tz-maps.html](http://wmh.github.io/hunbook/tools/tz-maps.html)
+* [watch.html](http://wmh.github.io/hunbook/watch.html) - 經典手錶 PWA (可安裝到手機桌面)
 

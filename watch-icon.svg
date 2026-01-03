@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1a1a1a"/>
+  <circle cx="256" cy="256" r="200" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="8"/>
+  
+  <!-- 60 刻度 -->
+  <g id="ticks">
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(6 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(12 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(18 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(24 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(30 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(36 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(42 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(48 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(54 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(60 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(66 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(72 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(78 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(84 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(90 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(96 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(102 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(108 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(114 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(120 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(126 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(132 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(138 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(144 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(150 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(156 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(162 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(168 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(174 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(180 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(186 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(192 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(198 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(204 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(210 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(216 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(222 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(228 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(234 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(240 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(246 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(252 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(258 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(264 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(270 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(276 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(282 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(288 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(294 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(300 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(306 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(312 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(318 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(324 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="95" stroke="#2c2c2c" stroke-width="3" transform="rotate(330 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(336 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(342 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(348 256 256)"/>
+    <line x1="256" y1="80" x2="256" y2="90" stroke="#333" stroke-width="2" transform="rotate(354 256 256)"/>
+  </g>
+  
+  <!-- 時針 (10:10) -->
+  <line x1="256" y2="256" x2="256" y2="156" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" transform="rotate(60 256 256)"/>
+  <!-- 分針 (10:10) -->
+  <line x1="256" y1="256" x2="256" y2="126" stroke="#2c2c2c" stroke-width="5" stroke-linecap="round" transform="rotate(60 256 256)"/>
+  <!-- 秒針 -->
+  <line x1="256" y1="256" x2="256" y2="106" stroke="#c41e3a" stroke-width="2" stroke-linecap="round" transform="rotate(180 256 256)"/>
+  
+  <!-- 中心點 -->
+  <circle cx="256" cy="256" r="8" fill="#2c2c2c"/>
+</svg>

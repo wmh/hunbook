@@ -67,7 +67,7 @@
   </g>
   
   <!-- 時針 (10:10) -->
-  <line x1="256" y2="256" x2="256" y2="156" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" transform="rotate(60 256 256)"/>
+  <line x1="256" y1="256" x2="256" y2="156" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" transform="rotate(60 256 256)"/>
   <!-- 分針 (10:10) -->
   <line x1="256" y1="256" x2="256" y2="126" stroke="#2c2c2c" stroke-width="5" stroke-linecap="round" transform="rotate(60 256 256)"/>
   <!-- 秒針 -->

@@ -32,4 +32,5 @@
 * [trigonometric.html](http://wmh.github.io/hunbook/tools/trigonometric.html)
 * [tz-maps.html](http://wmh.github.io/hunbook/tools/tz-maps.html)
 * [watch.html](http://wmh.github.io/hunbook/watch.html) - 經典手錶 PWA (可安裝到手機桌面)
+* [pokego-types.html](http://wmh.github.io/hunbook/pokego-types.html) - Pokémon GO 屬性相剋查詢 PWA (可安裝到手機桌面)
 

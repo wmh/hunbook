@@ -55,7 +55,7 @@
     }
 
     .title {
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 10px;
@@ -65,7 +65,7 @@
     }
 
     .title small {
-      font-size: 12px;
+      font-size: 17px;
       font-weight: 400;
       color: var(--text2);
       background: var(--bg3);
@@ -82,7 +82,7 @@
       flex: 1;
       padding: 11px 8px;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       cursor: pointer;
       border: none;
@@ -107,7 +107,7 @@
     }
 
     .section-label {
-      font-size: 13px;
+      font-size: 19px;
       font-weight: 600;
       color: var(--text2);
       text-transform: uppercase;
@@ -128,14 +128,14 @@
       border-radius: 9px;
       border: 2.5px solid transparent;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
       text-align: center;
       transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
       text-shadow: 0 1px 3px rgba(0,0,0,0.45);
       user-select: none;
       -webkit-user-select: none;
-      min-height: 50px;
+      min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -152,7 +152,7 @@
 
     /* ── Defense hint ── */
     .defense-hint {
-      font-size: 14px;
+      font-size: 17px;
       color: var(--text2);
       text-align: center;
       background: var(--bg2);
@@ -168,7 +168,7 @@
       text-align: center;
       color: var(--text2);
       padding: 36px 20px;
-      font-size: 16px;
+      font-size: 19px;
       line-height: 1.7;
     }
     .empty-state .icon { font-size: 48px; margin-bottom: 10px; }
@@ -184,7 +184,7 @@
     .selected-badge {
       padding: 6px 16px;
       border-radius: 20px;
-      font-size: 16px;
+      font-size: 19px;
       font-weight: 700;
       color: #fff;
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
@@ -192,7 +192,7 @@
 
     .selected-divider {
       color: var(--text2);
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 300;
     }
 
@@ -216,13 +216,13 @@
     }
 
     .eff-label {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
       flex: 1;
     }
 
     .eff-mult {
-      font-size: 13px;
+      font-size: 19px;
       font-weight: 700;
       padding: 2px 9px;
       border-radius: 12px;
@@ -230,7 +230,7 @@
     }
 
     .eff-count {
-      font-size: 13px;
+      font-size: 19px;
       color: var(--text2);
       margin-left: 4px;
     }
@@ -253,7 +253,7 @@
     .type-tag {
       padding: 5px 13px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 17px;
       font-weight: 700;
       color: #fff;
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
@@ -261,7 +261,7 @@
 
     .pogo-note {
       text-align: center;
-      font-size: 12px;
+      font-size: 15px;
       color: var(--text2);
       margin-top: 16px;
       padding: 8px;
@@ -496,7 +496,7 @@ function buildSelectedBadges(label) {
     `<span class="selected-badge" style="background:${TYPE_COLORS[t]};color:${textColor(TYPE_COLORS[t])}">${TYPE_ZH[t]}</span>`
   ).join('<span class="selected-divider">/</span>');
   return `<div class="selected-display">
-    <span style="font-size:14px;color:var(--text2)">${label}</span>
+    <span style="font-size:17px;color:var(--text2)">${label}</span>
     ${badges}
   </div>`;
 }

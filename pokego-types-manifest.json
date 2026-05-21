@@ -1,0 +1,25 @@
+{
+  "name": "Pokémon GO 屬性查詢",
+  "short_name": "屬性查詢",
+  "description": "Pokémon GO 屬性相剋查詢表，支援攻擊與防禦雙模式，離線可用",
+  "start_url": "./pokego-types.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "pokego-types-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "pokego-types-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golang 版本時程表</title>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .container {
+            max-width: 1170px;
+            margin: 0 auto;
+        }
         body {
             padding: 20px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -134,6 +137,7 @@
             text-align: center;
             font-size: 11px;
             color: #666;
+            transform: translateX(-50%);
         }
         .time-marker::before {
             content: '';
@@ -247,14 +251,7 @@
             document.getElementById('currentDate').textContent = 
                 `當前日期：${currentYear} 年 ${currentMonth} 月 ${now.getDate()} 日`;
             
-            let currentVersion;
-            if (currentMonth >= 8) {
-                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear, 8) };
-            } else if (currentMonth >= 2) {
-                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear, 2) };
-            } else {
-                currentVersion = { major: 1, minor: calculateMinorVersion(currentYear - 1, 8) };
-            }
+            const currentVersion = { major: 1, minor: getCurrentMinorVersion(now) };
             
             const versions = [];
             
@@ -296,17 +293,21 @@
             return baseMinor + versionsFromBase;
         }
         
-        function calculateVersionInfo(minorVersion, currentDate) {
+        // Go 通常在 2 月／8 月的第二週發布（如 1.22 於 2024-02-06、1.24 於 2025-02-11），
+        // 以每月 10 日近似，避免月初就把未發布的版本標成當前版本
+        function getReleaseDate(minorVersion) {
             const baseYear = 2024;
             const baseMinor = 22;
             const baseMonth = 2;
-            
-            const versionDiff = minorVersion - baseMinor;
-            const monthsToAdd = versionDiff * 6;
-            
-            const releaseDate = new Date(baseYear, baseMonth - 1, 1);
-            releaseDate.setMonth(releaseDate.getMonth() + monthsToAdd);
-            
+
+            const releaseDate = new Date(baseYear, baseMonth - 1, 10);
+            releaseDate.setMonth(releaseDate.getMonth() + (minorVersion - baseMinor) * 6);
+            return releaseDate;
+        }
+
+        function calculateVersionInfo(minorVersion, currentDate) {
+            const releaseDate = getReleaseDate(minorVersion);
+
             const eolDate = new Date(releaseDate);
             eolDate.setMonth(eolDate.getMonth() + 12);
             
@@ -321,7 +322,7 @@
                 status = 'eol';
             } else if (minorVersion === currentMinor) {
                 status = 'current';
-            } else if (!isEOL) {
+            } else {
                 status = 'supported';
             }
             
@@ -338,14 +339,20 @@
         function getCurrentMinorVersion(date) {
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
-            
+
+            let minor;
             if (month >= 8) {
-                return calculateMinorVersion(year, 8);
+                minor = calculateMinorVersion(year, 8);
             } else if (month >= 2) {
-                return calculateMinorVersion(year, 2);
+                minor = calculateMinorVersion(year, 2);
             } else {
-                return calculateMinorVersion(year - 1, 8);
+                minor = calculateMinorVersion(year - 1, 8);
             }
+            // 發布月的 1–9 日該版本尚未發布，當前版本仍是前一版
+            if (getReleaseDate(minor) > date) {
+                minor -= 1;
+            }
+            return minor;
         }
         
         function renderTimeline(versions, currentDate) {
